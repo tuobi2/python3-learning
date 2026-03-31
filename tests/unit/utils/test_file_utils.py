@@ -12,14 +12,17 @@ import csv
 from pathlib import Path
 
 # 添加项目根目录到路径
-sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__)))))
+project_root = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__))))
+sys.path.insert(0, project_root)
 
 try:
-    from utils import file_utils
+    # 尝试直接导入file_utils模块
+    import utils.file_utils as file_utils
     HAS_FILE_UTILS = True
-except ImportError:
+except ImportError as e:
+    print(f"导入错误: {e}")
     HAS_FILE_UTILS = False
-    pytest.skip("file_utils模块未找到", allow_module_level=True)
+    pytest.skip(f"file_utils模块未找到: {e}", allow_module_level=True)
 
 
 class TestFileUtils:

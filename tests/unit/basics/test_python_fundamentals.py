@@ -8,9 +8,11 @@ import sys
 import os
 
 # 添加项目根目录到路径
-sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__)))))
+project_root = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__))))
+sys.path.insert(0, project_root)
 
-from examples.basics import python_fundamentals_auto
+# 注意：python_fundamentals_auto.py是一个直接运行的脚本，不是模块
+# 我们只测试Python基础语法，不导入示例文件
 
 
 class TestPythonBasics:
