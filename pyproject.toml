@@ -20,6 +20,9 @@ classifiers = [
     "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
 ]
 keywords = ["python", "learning", "examples", "fastapi", "education"]
 dependencies = [
@@ -83,6 +86,22 @@ python_version = "3.9"
 warn_return_any = true
 warn_unused_configs = true
 disallow_untyped_defs = true
+
+[project.optional-dependencies]
+all = [
+    "fastapi>=0.110.0",
+    "uvicorn>=0.29.0",
+    "pydantic>=2.6.4",
+    "requests>=2.31.0",
+    "python-dotenv>=1.0.1",
+    "pytest>=7.4.4",
+    "pytest-cov>=4.1.0",
+    "black>=23.12.1",
+    "flake8>=6.1.0",
+    "mypy>=1.8.0",
+    "isort>=5.13.2",
+    "bandit>=1.7.7",
+]
 
 [project.scripts]
 run-examples = "scripts.run_examples:main"
