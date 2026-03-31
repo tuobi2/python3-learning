@@ -1,5 +1,5 @@
 #!/bin/bash
-# 一键推送Python3项目到GitHub
+# 一键推送Python3项目到GitHub (使用SSH)
 
 set -e
 
@@ -27,15 +27,37 @@ print_error() {
     echo -e "${RED}[ERROR]${NC} $1"
 }
 
+# 检查SSH认证
+check_ssh_auth() {
+    print_info "检查SSH认证..."
+    if ssh -T git@github.com 2>&1 | grep -q "successfully authenticated"; then
+        print_success "SSH认证成功"
+        return 0
+    else
+        print_error "SSH认证失败"
+        echo ""
+        print_info "请先设置SSH密钥:"
+        echo "  1. 生成SSH密钥: ssh-keygen -t ed25519 -C \"your_email@example.com\""
+        echo "  2. 添加到GitHub: https://github.com/settings/keys"
+        echo "  3. 测试连接: ssh -T git@github.com"
+        return 1
+    fi
+}
+
 # 主函数
 main() {
     echo -e "${BLUE}========================================${NC}"
-    echo -e "${BLUE}    Python3项目GitHub推送工具${NC}"
+    echo -e "${BLUE}    Python3项目GitHub推送工具 (SSH版)${NC}"
     echo -e "${BLUE}========================================${NC}"
     
     # 检查git仓库
     if [ ! -d ".git" ]; then
         print_error "当前目录不是git仓库"
+        exit 1
+    fi
+    
+    # 检查SSH认证
+    if ! check_ssh_auth; then
         exit 1
     fi
     
@@ -58,18 +80,7 @@ main() {
     print_info "最近提交:"
     git log --oneline -3
     
-    # 输入GitHub Token
-    echo ""
-    print_warning "请输入GitHub Personal Access Token (需要repo权限):"
-    read -s GITHUB_TOKEN
-    echo
-    
-    if [ -z "$GITHUB_TOKEN" ]; then
-        print_error "Token不能为空"
-        exit 1
-    fi
-    
-    # 提取仓库信息
+    # 提取仓库路径
     if [[ $REPO_URL == git@github.com:* ]]; then
         REPO_PATH=$(echo $REPO_URL | sed 's/git@github.com://' | sed 's/\.git$//')
     elif [[ $REPO_URL == https://github.com/* ]]; then
@@ -81,23 +92,13 @@ main() {
     
     # 确认推送
     echo ""
-    print_warning "即将推送到: https://github.com/$REPO_PATH"
+    print_warning "即将使用SSH推送到: https://github.com/$REPO_PATH"
     read -p "确认推送? (y/n): " -n 1 -r
     echo
     if [[ ! $REPLY =~ ^[Yy]$ ]]; then
         print_info "取消推送"
         exit 0
     fi
-    
-    # 使用Token推送
-    print_info "准备推送..."
-    TOKEN_URL="https://${GITHUB_TOKEN}@github.com/${REPO_PATH}.git"
-    
-    # 保存原始URL
-    ORIGINAL_URL=$REPO_URL
-    
-    # 临时修改URL
-    git remote set-url origin "$TOKEN_URL"
     
     # 推送
     print_info "推送中..."
@@ -123,10 +124,6 @@ main() {
             SUCCESS=false
         fi
     fi
-    
-    # 恢复原始URL
-    git remote set-url origin "$ORIGINAL_URL"
-    print_info "恢复原始URL"
     
     # 显示结果
     echo ""
@@ -164,13 +161,13 @@ main() {
         print_error "推送失败"
         echo ""
         print_info "可能的原因:"
-        echo "  1. Token权限不足 (需要 repo 权限)"
+        echo "  1. SSH密钥未正确配置"
         echo "  2. 网络连接问题"
         echo "  3. 仓库不存在或无权访问"
         echo "  4. 分支冲突"
         echo ""
         print_info "解决方法:"
-        echo "  1. 检查Token权限: https://github.com/settings/tokens"
+        echo "  1. 检查SSH配置: ssh -T git@github.com"
         echo "  2. 确认仓库存在: https://github.com/$REPO_PATH"
         echo "  3. 拉取最新代码: git pull origin $BRANCH"
         echo "  4. 解决冲突后重试"
