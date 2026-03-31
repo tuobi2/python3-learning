@@ -218,6 +218,6 @@ $RECYCLE.BIN/
 *.vmcontext
 
 # End of .gitignore
-# 包含敏感Token的文件（不要提交）
-push_auto.sh
-push_now.sh
+
+# 旧的推送指南
+GITHUB_PUSH_GUIDE.md

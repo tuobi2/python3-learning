@@ -239,23 +239,22 @@ pytest --cov=examples --cov-report=html
 
 ## 🚀 GitHub推送指南
 
-项目已配置多种推送方式，支持GitHub Token认证：
+项目已配置SSH推送方式，无需Token，安全便捷：
 
 ### 推送方法
 ```bash
-# 方法1: 使用一键推送脚本（推荐）
+# 方法1: 直接使用git命令（推荐）
+git push origin main
+
+# 方法2: 使用SSH推送脚本
+./push_ssh.sh
+
+# 方法3: 使用完整推送脚本
 ./push_to_github.sh
-
-# 方法2: 使用简单Token脚本
-./push_with_token_simple.sh
-
-# 方法3: 使用环境变量
-cp .env.example .env  # 编辑.env文件填入Token
-./push_with_env.sh
 ```
 
-### Token要求
-GitHub Personal Access Token需要 `repo` 权限。详细指南见 [GITHUB_PUSH_GUIDE.md](GITHUB_PUSH_GUIDE.md)
+### SSH配置
+已配置SSH密钥认证，无需密码/Token。详细指南见 [SETUP_GITHUB.md](SETUP_GITHUB.md)
 
 ## 📞 联系
 

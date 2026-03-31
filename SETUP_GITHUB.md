@@ -1,4 +1,4 @@
-# GitHub配置指南
+# GitHub配置指南 - SSH版
 
 ## 📋 当前状态
 
@@ -29,7 +29,7 @@ ls -la ~/.ssh/
 
 ## 🚀 推送方式
 
-### 方法1: 直接使用git命令（最简单）
+### 方法1: 直接使用git命令（推荐）
 ```bash
 cd /Users/lijiepeng/python3
 git push origin main
@@ -41,10 +41,10 @@ cd /Users/lijiepeng/python3
 ./push_ssh.sh
 ```
 
-### 方法3: 使用之前的一键脚本（已更新为SSH）
+### 方法3: 使用完整推送脚本
 ```bash
 cd /Users/lijiepeng/python3
-./push_to_github.sh  # 现在会自动使用SSH
+./push_to_github.sh
 ```
 
 ## 🔧 Git配置
@@ -115,12 +115,6 @@ git push origin feature/new-feature
 
 # 6. 创建Pull Request
 # 在GitHub网站上操作
-```
-
-### 简化流程（使用脚本）
-```bash
-# 使用提供的脚本
-./scripts/github_push.sh
 ```
 
 ## 🛠️ 故障排除
@@ -213,12 +207,6 @@ git commit -m "chore: 构建过程"
 - ✅ 使用强密码保护私钥
 - ✅ 定期更新密钥
 
-### 保护GitHub Token
-- ✅ Token就像密码，不要分享
-- ✅ 使用Fine-grained tokens限制权限
-- ✅ 定期轮换Token
-- ✅ 不要在代码中硬编码Token
-
 ## 📞 帮助支持
 
 ### 遇到问题？
@@ -234,4 +222,4 @@ git commit -m "chore: 构建过程"
 
 ---
 
-**现在你可以轻松地使用SSH推送代码到GitHub，无需每次输入Token！** 🚀
+**现在你可以轻松地使用SSH推送代码到GitHub！** 🚀
