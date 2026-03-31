@@ -1,0 +1,22 @@
+# Python3-learning 项目依赖
+
+# Web框架
+fastapi==0.110.0
+uvicorn==0.29.0
+
+# 数据验证
+pydantic==2.6.4
+typing-extensions==4.10.0
+
+# HTTP请求
+requests==2.31.0
+
+# 环境变量
+python-dotenv==1.0.1
+
+# 开发依赖 (可选)
+# pytest==7.4.4
+# pytest-cov==4.1.0
+# black==23.12.1
+# flake8==6.1.0
+# mypy==1.8.0

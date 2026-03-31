@@ -1,0 +1,66 @@
+version: '3.8'
+
+services:
+  # FastAPI示例应用
+  fastapi-example:
+    build: .
+    container_name: python3-fastapi-example
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./examples:/app/examples
+      - ./utils:/app/utils
+    command: python examples/intermediate/fastapi_web_app.py
+    environment:
+      - PYTHONPATH=/app
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    restart: unless-stopped
+
+  # 报销系统应用
+  reimbursement-system:
+    build: .
+    container_name: python3-reimbursement-system
+    ports:
+      - "8001:8000"
+    volumes:
+      - ./projects/reimbursement-system:/app/projects/reimbursement-system
+    command: python projects/reimbursement-system/main.py
+    environment:
+      - PYTHONPATH=/app
+    depends_on:
+      - fastapi-example
+    restart: unless-stopped
+
+  # 开发环境（带热重载）
+  dev:
+    build: .
+    container_name: python3-dev
+    ports:
+      - "8002:8000"
+    volumes:
+      - .:/app
+    command: uvicorn examples.intermediate.fastapi_web_app:app --host 0.0.0.0 --port 8000 --reload
+    environment:
+      - PYTHONPATH=/app
+      - PYTHONUNBUFFERED=1
+    stdin_open: true
+    tty: true
+    restart: unless-stopped
+
+  # 测试环境
+  test:
+    build: .
+    container_name: python3-test
+    volumes:
+      - .:/app
+    command: pytest tests/ -v
+    environment:
+      - PYTHONPATH=/app
+    depends_on:
+      - fastapi-example
+    restart: "no"

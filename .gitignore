@@ -25,12 +25,14 @@ MANIFEST
 venv/
 env/
 ENV/
+.venv/
 
 # IDE
 .vscode/
 .idea/
 *.swp
 *.swo
+*~
 
 # System
 .DS_Store
@@ -38,10 +40,12 @@ Thumbs.db
 
 # Logs
 *.log
+logs/
 
 # Temp files
 *.tmp
 temp/
+tmp/
 
 # Python bytecode
 *.pyc
@@ -64,20 +68,29 @@ Thumbs.db
 # Environment variables
 .env
 *.env
+.env.local
+.env.*.local
 
 # Database files
 *.db
 *.sqlite
+*.sqlite3
 
 # Coverage reports
 .coverage
 htmlcov/
+.coverage.*
+.coverage
+*.cover
 
 # pytest
 .pytest_cache/
+.cache
 
 # mypy
 .mypy_cache/
+.dmypy.json
+dmypy.json
 
 # Pyre type checker
 .pyre/
@@ -85,6 +98,8 @@ htmlcov/
 # Output files
 output/
 results/
+data/output/
+data/results/
 
 # Large data files
 *.csv
@@ -93,8 +108,113 @@ results/
 *.pdf
 *.zip
 *.tar.gz
+*.tar.bz2
+*.7z
 
 # Secrets
 secrets.json
 config.json
 credentials.json
+*.pem
+*.key
+*.crt
+
+# Project specific
+backups/
+*.bak
+
+# Documentation
+_build/
+docs/_build/
+
+# Test outputs
+test-reports/
+junit.xml
+
+# Package files
+*.whl
+*.tar.gz
+
+# Local development
+local_settings.py
+settings_local.py
+
+# OS generated files
+ehthumbs.db
+Icon?
+Thumbs.db
+
+# Backup files
+*~
+*.backup
+*.bak
+
+# Temporary files
+*.tmp
+temp/
+
+# Sphinx documentation
+docs/_build/
+
+# PyBuilder
+target/
+
+# IPython
+profile_default/
+ipython_config.py
+
+# pyenv
+.python-version
+
+# pipenv
+Pipfile.lock
+
+# poetry
+poetry.lock
+
+# pdm
+.pdm.toml
+
+# ruff
+.ruff_cache/
+
+# mypy
+.mypy_cache/
+
+# VS Code
+.vscode/
+
+# JetBrains IDEs
+.idea/
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Linux
+*~
+
+# Windows
+[Dd]esktop.ini
+$RECYCLE.BIN/
+
+# Archives
+*.7z
+*.dmg
+*.gz
+*.iso
+*.jar
+*.rar
+*.tar
+*.zip
+
+# Logs and databases
+*.log
+*.sql
+*.sqlite
+
+# Virtual machine crash logs
+*.vmcontext
+
+# End of .gitignore
