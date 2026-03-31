@@ -237,6 +237,26 @@ pytest --cov=examples --cov-report=html
 
 本项目采用MIT许可证 - 查看 [LICENSE](LICENSE) 文件了解详情。
 
+## 🚀 GitHub推送指南
+
+项目已配置多种推送方式，支持GitHub Token认证：
+
+### 推送方法
+```bash
+# 方法1: 使用一键推送脚本（推荐）
+./push_to_github.sh
+
+# 方法2: 使用简单Token脚本
+./push_with_token_simple.sh
+
+# 方法3: 使用环境变量
+cp .env.example .env  # 编辑.env文件填入Token
+./push_with_env.sh
+```
+
+### Token要求
+GitHub Personal Access Token需要 `repo` 权限。详细指南见 [GITHUB_PUSH_GUIDE.md](GITHUB_PUSH_GUIDE.md)
+
 ## 📞 联系
 
 如有问题或建议：
